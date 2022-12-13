@@ -129,7 +129,7 @@ fig
                 <span class="brlarge"></span>
                 <p>
                     Mental illnesses such as depression are associated with higher rates of disability and unemployment. 
-                    Only 40% of employees who report severe depression receive treatment to control depression symptoms.
+                    Only 54% of employees who report severe depression receive treatment to control depression symptoms.
                 </p>
             </div>
         </div>
@@ -143,7 +143,7 @@ fig
                     There was one question in the survey dataset - 'If you have a mental health condition, do you feel that it interferes with your work?'
                     <ul>
                         <li>On seeing the first graph we conclude that around 48% of people say that sometimes work interferes with their mental health. Now 'Sometimes' is a really vague response to a question, and more often than not these are the people who actually face a condition but are too shy/reluctant to choose the extreme category.</li>
-                        <li>Coming to our second graph, we see that the people who chose 'Sometimes' had the highest number of people who actually had a mental condition. Similar pattern was shown for the people who belonged to the *'Often category'.</li>
+                        
                         <li>But what is more surprising to know is that even for people whose mental health 'Never' has interfered at work, there is a little group that still want to get treatment before it become a job stress. It can be triggered a variety of reasons like the requirements of the job do not match the capabilities, resources or needs of the worker.</li>
                     </ul>
                 </p>
@@ -206,7 +206,15 @@ fig
 
         </div>
 
-        <h2>Map Stuff</h2>
+        <h2>Map showing number of people who seeked help</h2>
+<p>
+                <ul>
+                    <li>So the combination of these 2 maps shows that how many people of a certain age group responded to the survey questions and out of that age group, how many actually seeked help.</li>
+                    <li>This graph is really important as it groups the data for different age groups and provide insights for the specific age groups.</li>
+                    <li>Insight: From the data, we can see that elder people are likely to seek help but younger generation people are either not seeking help or are afraid to seek the help or doesn't know about how to go about seeking help which is a major concern and needs to be addressed.</li>
+                </ul>
+</p>
+
         <div id = "map">
             <py-script output = "map">
 import altair as alt
@@ -242,10 +250,12 @@ age | percentage
             
         </div>
         <div style="background-color:#FFFFFF;">
+            <h2>Map showing responders data</h2>
             <p>
                 <ul>
-                    <li>There's a lot of bias in our dateset as most people are between the age 20 and 40</li>
-                    <li>From the limited data, we can see that elder people are likely to seek help</li>
+                    <li>Although we are pretty confident about the dataset we used but wanted to mention that there is a bias in our dateset as most people are between the age 20 and 40 and most respondeents are from coastal states. </li>
+                    <li> The below graph illustrates our dataset and also gives a visual representation to understand in which year the survey was taken and how many people from a specific state responded to the survey.</li> 
+           
                 </ul>
 
 
@@ -315,15 +325,7 @@ bar_slider = alt.Chart(df).mark_bar().encode(
         </py-script>
 
     </div>
-    <div style="background-color:#FFFFFF;">
-        <p>
-            <ul>
-                <li>Most of data are from costal states</li>
-            </ul>
-
-
-        </p>
-    </div>
+   
     <span class="brlarge"></span>
 
     <div style="background-color:#FFFFFF;">
