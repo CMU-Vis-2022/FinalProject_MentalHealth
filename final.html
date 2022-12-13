@@ -1,0 +1,358 @@
+<html>
+    <head>
+      <title>Mental Health</title>
+      <meta charset="iso-8859-1">
+      <link rel="icon" type="image/x-icon" href="./favicon.png">
+      <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.js"></script>
+      <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
+      <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@holoviz/panel@0.13.1/dist/panel.min.js"></script>
+      <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+      <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+      <style>
+
+        body {
+            margin-left: auto;
+            margin-right: auto;
+            width: 60em
+        }
+        .background{
+            margin-left: auto;
+            margin-right: auto;
+            width: 60em;
+
+        }
+        .blue-background{
+            background-color:#FFFFFF;
+            margin: 0px;
+
+        }
+        .flex-container {
+            display: flex;
+            background-color:#FFFFFF;
+
+        }
+
+        .flex-child {
+            flex: 1;
+            background-color:#FFFFFF;
+        }  
+
+        .flex-child:first-child {
+            margin-right: 20px;
+        } 
+        h2 {
+            padding-bottom: 5px;
+            font-size: 1.5em;
+        }
+
+        ul{
+            list-style-type: circle;
+            padding-left: 20px;
+        }
+        br{
+            padding-bottom:1.5em;
+        }
+        .brmedium {
+            display: block;
+            margin-bottom: 1em;
+        }
+        .brlarge {
+            display: block;
+            margin-bottom: 2em;
+        }
+        .br {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+        div{
+
+        }
+        
+
+      </style>
+    </head>
+    <py-env>
+      - pandas
+      - matplotlib
+      - seaborn
+      - altair
+      - folium
+      - vega_datasets
+      - panel==0.13.1
+      - paths:
+        - ./housing.csv
+        - ./test.csv
+        - ./survey.csv
+    </py-env>
+
+
+
+
+    <body class="background">
+        <div>
+            <h1 style="font-size: 2em" > Mental Health in Tech</h1>
+            
+            <body>
+                Mental health disorders are among the most burdensome health concerns in the United States. 
+                Nearly 1 in 5 US adults aged 18 or older (18.3% or 44.7 million people) reported any mental illness in 2016.2 In addition, 71% of adults reported at least one symptom of stress, 
+                such as a headache or feeling overwhelmed or anxious
+            </body>
+            <span class="brlarge"></span>
+        </div>
+
+        <h2>Mental Health Issues Affect Businesses and Their Employees</h2>
+        <div class = "flex-container" >
+            <div class = "flex-child magenta" id = "donut">
+                <py-script output = "donut">
+import matplotlib.pyplot as plt
+import pandas as pd 
+data = pd.read_csv("./survey.csv")
+df_group = data.groupby(['treatment'])["seek_help"].count()
+fig, ax = plt.subplots()
+df_group.plot.pie(figsize=(4,4), autopct="%.2f")
+centre_circle = plt.Circle((0, 0), 0.70, fc='white')
+fig.gca().add_artist(centre_circle)
+plt.title('Work Interference of Survey Respondents')
+fig
+                </py-script>
+            </div>
+            <div class="flex-child green">
+                <span class="brlarge"></span>
+                <h3><b>Poor mental health and stress can negatively affect employee:</b></h3>
+                <p>
+                    <ul>
+                        <li>Job performance and productivity.</li>
+                        <li>Engagement with one’s work.</li>
+                        <li>Communication with coworkers.</li>
+                        <li>Physical capability and daily functioning.</li>
+                    </ul>
+                </p>
+                <span class="brlarge"></span>
+                <p>
+                    Mental illnesses such as depression are associated with higher rates of disability and unemployment. 
+                    Only 40% of employees who report severe depression receive treatment to control depression symptoms.
+                </p>
+            </div>
+        </div>
+        <span class="brlarge"></span>
+
+        <h2>Work Interference of Survey Respondents</h2>
+        <div style="background-color:#FFFFFF;">
+            <div>
+                <h3><b>1. Employees are afraid of sharing their mental health condition to the employer. </b></h3>
+                <p>
+                    There was one question in the survey dataset - 'If you have a mental health condition, do you feel that it interferes with your work?'
+                    <ul>
+                        <li>On seeing the first graph we conclude that around 48% of people say that sometimes work interferes with their mental health. Now 'Sometimes' is a really vague response to a question, and more often than not these are the people who actually face a condition but are too shy/reluctant to choose the extreme category.</li>
+                        <li>Coming to our second graph, we see that the people who chose 'Sometimes' had the highest number of people who actually had a mental condition. Similar pattern was shown for the people who belonged to the *'Often category'.</li>
+                        <li>But what is more surprising to know is that even for people whose mental health 'Never' has interfered at work, there is a little group that still want to get treatment before it become a job stress. It can be triggered a variety of reasons like the requirements of the job do not match the capabilities, resources or needs of the worker.</li>
+                    </ul>
+                </p>
+                
+            </div>
+
+            <div id= "countplot" >
+                <py-script src = "./countplot.py"> </py-script>
+            </div>
+
+            <div>
+                <h3><b>2. Employees are NOT aware of the employer provides health related benefits</b></h3>
+                <p>
+                    This was the respondent's answer to the question, 'Does your employer provide mental health benefits?'.                    
+                    <ul>
+                        <li>We see that around 38% of the respondents said that their employer provided them mental health benefits, whereas a significant number ( 32% ) of them didn't even know whether they were provided this benefit.</li>
+                        <li>Coming to the second graph, we see that for the people who YES said to mental health benefits, around 63% of them said that they were seeking medical help.</li>
+                        <li>Surprisingly, the people who said NO for the mental health benefits provided by the company, close to 45% of them who want to seek mental health treatment.</li>
+                    </ul>
+                </p>
+            </div>
+            <div id="benefits">
+                <py-script src = "./benefits.py"></py-script>
+            </div>
+
+            <div>
+                <h3><b>3. Is it easy for employees to take leave for mental health reason?</b></h3>
+                <p>
+                    This is the respondent's answer to the question, 'How easy is it for you to take medical leave for a mental health condition?'                   
+                    <ul>
+                        <li>While close to 50% of the people answered that they did not know about it, suprisingly around 45% of those people sought help for their condition.</li>
+                        <li>A small percent of people ( around 8% ) said that it was very difficult for them to get leave for mental health and out of those, 75% of them sought for help.</li>
+                        <li>Employees who said it was 'somewhat easy' or 'very easy' to get leave had almost 50% people seeking medical help.</li>
+                    </ul>
+                </p>
+            </div>
+            <div id="leave">
+                <py-script src = "./leave.py"></py-script>
+            </div>
+
+
+            <div>
+                <h3><b>4. Company should provide a safe and open environment from interviewing</b></h3>
+                <p>
+                    This is the respondent's answer to the question, 'Would you bring up a physical health issue with a potential employer in an interview?'.               
+                    <ul>
+                        <li>While a majority of the people are still dubious about discussing their physical health condition with the future employer, however, close to 17% believe that there is no issue in discussing their physical health conditions.</li>
+                        <li>Around 50% of the people still remain confused about whether it is a good option to discuss their condition or not.</li>
+                    </ul>
+                </p>
+            </div>
+            <div id="phys">
+                <py-script src = "./phys.py"></py-script>
+            </div>
+
+
+
+
+
+
+        </div>
+
+        <h2>Map Stuff</h2>
+        <div id = "map">
+            <py-script output = "map">
+import altair as alt
+import pandas as pd 
+from vega_datasets import data
+df = pd.read_csv("./survey.csv")
+point = alt.selection(type="interval")
+
+age = alt.Chart(df).mark_bar().encode(
+    alt.X("Age:Q", bin=True),
+    y='count()',
+    color=alt.condition(point, 'Age:Q', alt.value('lightgray'))
+).add_selection(
+    point
+)
+
+percentage = alt.Chart(df).mark_bar().encode(
+    y='seek_help:N',
+    color='seek_help:N',
+    x='count(seek_help):Q'
+).transform_filter(
+    point
+).properties(
+    width = 500,
+    height = 300
+)
+
+
+
+age | percentage
+
+            </py-script>
+            
+        </div>
+        <div style="background-color:#FFFFFF;">
+            <p>
+                <ul>
+                    <li>There's a lot of bias in our dateset as most people are between the age 20 and 40</li>
+                    <li>From the limited data, we can see that elder people are likely to seek help</li>
+                </ul>
+
+
+            </p>
+        </div>
+    <div id = "map2">
+        <py-script output = "map2">
+import altair as alt
+import pandas as pd 
+from vega_datasets import data
+df = pd.read_csv("./survey.csv")
+select = alt.selection_interval(encodings=['x'])
+
+states = alt.topo_feature(data.us_10m.url, feature='states')
+
+background = alt.Chart(states).mark_geoshape(
+    fill='#eab676',
+    stroke='white'
+).properties(
+    width=900,
+    height=300
+).project('albersUsa')
+
+
+points = alt.Chart(df).transform_aggregate(
+    latitude='mean(latitude)',
+    longitude='mean(longitude)',
+    Timestamp = 'mean(Timestamp)',
+    count='count()',
+    groupby=['state']
+).mark_circle().encode(
+    longitude='longitude:Q',
+    latitude='latitude:Q',
+    size=alt.Size('count:Q', title='Number of Participant'),
+    color=alt.condition(select,'count:Q',alt.value('lightgray')),
+    tooltip=['state:N','count:Q'],
+    opacity=alt.condition(
+        select,
+        alt.value(0.7), alt.value(0.1))
+).properties(
+    title='Number of Participant'
+)
+
+bar_slider = alt.Chart(df).mark_bar().encode(
+    x='year(Timestamp)',
+    y='count()'
+).properties(
+    height=50,
+    width = 900
+).add_selection(
+    select)
+
+
+<!-- tech = alt.Chart(df).mark_bar().encode(
+    y='tech_company:N',
+    color='tech_company:N',
+    x='count(tech_company):Q'
+).transform_filter(
+    select
+).properties(
+    width = 410,
+    height = 300
+) -->
+
+(background + points) & bar_slider
+
+        </py-script>
+
+    </div>
+    <div style="background-color:#FFFFFF;">
+        <p>
+            <ul>
+                <li>Most of data are from costal states</li>
+            </ul>
+
+
+        </p>
+    </div>
+    <span class="brlarge"></span>
+
+    <div style="background-color:#FFFFFF;">
+        <h2>What Can Be Done?</h2>
+        <p>
+            <ul>
+                <li>Encourage employers to offer mental health and stress management education and programs that meet their needs and interests, if they are not already in place.</li>
+                <li>Participate in employer-sponsored programs and activities to learn skills and get the support they need to improve their mental health.</li>
+                <li>Serve as dedicated wellness champions and participate in training on topics such as financial planning and how to manage unacceptable behaviors and attitudes in the workplace as a way to help others, when appropriate.</li>
+                <li>Share personal experiences with others to help reduce stigma, when appropriate.</li>
+                <li>Be open-minded about the experiences and feelings of colleagues. Respond with empathy, offer peer support, and encourage others to seek help.</li>
+                <li>Adopt behaviors that promote stress management and mental health.</li>
+                <li>Eat healthy, well-balanced meals, exercise regularly, and get 7 to 8 hours of sleep a night.</li>
+                <li>Take part in activities that promote stress management and relaxation, such as yoga, meditation, mindfulness, or tai chi.</li>
+                <li>Build and nurture real-life, face-to-face social connections.</li>
+                <li>Take the time to reflect on positive experiences and express happiness and gratitude.</li>
+                <li>Set and work toward personal, wellness, and work-related goals and ask for help when it is needed.</li>
+            </ul>
+        </p>
+    </div>
+
+
+
+
+
+    </body>
+
+    <hr>
+    <p><center>made with &#128151; by a longhorn &#129304;</center></p>
+    </html>  
